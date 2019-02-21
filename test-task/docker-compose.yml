@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    ################################
+    # -- Service infrastructure -- #
+    ################################
+    app:
+        build: ./app
+        tty: true
+        volumes:
+            - ./app:/usr/src/app:rw
+        command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        ports:
+            - "8000:8000"

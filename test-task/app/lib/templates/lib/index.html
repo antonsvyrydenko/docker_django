@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<title>LIBRARY</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+	<div id="search_form">
+		
+		<!-- author info -->
+		{% if result %}
+		<p id="title">Results</p>
+		<table>
+		<tr>
+		  <th> Name </th>
+		  <th> Gender </th>
+		  <th> Birthday </th>
+		</tr> 
+		{% for r in result %}
+		<tr>
+		  <th> {{ r.name }}</th>
+		  <th> {{ r.gender }}</th>
+		  <th> {{ r.date }}</th>
+		</tr> 
+		{% endfor %}
+		</table>
+		<input id="button" type="button" name="Reset" value="Reset" onclick="location.href='/'">
+		{% endif %}
+
+		<!-- book info -->
+		{% if result__ %}
+		<p id="title">Results</p>
+		<table>
+		<tr>
+		  <th> Title </th>
+		  <th> ISBN </th>
+		  <th> Genre </th>
+		  <th> Published </th>
+		</tr> 
+		{% for r in result__ %}
+		<tr>
+		  <th> {{ r.title }}</th>
+		  <th> {{ r.isbn }}</th>
+		  <th> {{ r.genre }}</th>
+		  <th> {{ r.pub_date }}</th>
+		</tr> 
+		{% endfor %}
+		</table>
+		<input id="button" type="button" name="Reset" value="Reset" onclick="location.href='/'">
+		{% endif %}
+
+		{% if error_message %}
+		<p id="title_error">{{error_message}}</p>
+		{% endif %}
+	</div>
+	<form id="search_form" action='/search_authors/' method='get'>
+		<div>
+			<p id="title">Author search params:</p>
+			<p>Results order:</p>
+			<p><input name="order" type="radio" value="asc">asc</p>
+			<p><input name="order" type="radio" value="desc"> desc</p>
+			<input id="text" type="text" name='author_firstname' placeholder="Author first name">
+		</div>
+		<div>
+			<input id="button" type="submit" value="Authors list" name="authors_list">
+			<input id="button" type="submit" value="Authors info" name="authors_names">
+			
+		</div>
+	</form>
+	<form id="search_form" action='/search_books/' method='get'>
+		<div>
+			<p id="title">Book search params:</p>
+			<p>Results order:</p>
+			<p><input name="order" type="radio" value="asc">asc</p>
+			<p><input name="order" type="radio" value="desc"> desc</p>
+			<p>Order book by:</p>
+			<p><input name="b_order" type="radio" value="pub_date">Published</p>
+			<p><input name="b_order" type="radio" value="title">Title</p>
+			<input id="text" type="text" name='author_firstname' placeholder="Author first name">
+			<input id="text" type="text" name='book_title' placeholder="Book title">
+		</div>
+		<div>
+			<input id="button" type="submit" value="Books by author" name="book_author">
+			<input id="button" type="submit" value="Books list" name="book_list">
+			<input id="button" type="submit" value="Book info" name="book_info">
+		</div>
+	</form>
+
+</body>
+</html>
+
