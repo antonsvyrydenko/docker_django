@@ -12,17 +12,13 @@ def index(request):
 def search_authors(request):
 	result=[]
 	if 'authors_names' in request.GET:
-		try:
-			fname=request.GET['author_firstname']
-			if fname and not (re.search(r'\d', fname)):
-				auths = Author.objects.all().filter(name__contains=fname)
-				for e in auths:		
-					result.append(e)
-			else:
-				error_message='Empty field / Invalid input'
-				return render(request, 'lib/index.html', {'error_message':error_message})
-		except Exception as e:
-			error_message='Error %s ' % e
+		fname=request.GET['author_firstname']
+		if fname and not (re.search(r'\d', fname)):
+			auths = Author.objects.all().filter(name__contains=fname)
+			for e in auths:		
+				result.append(e)
+		else:
+			error_message='Empty field / Invalid input'
 			return render(request, 'lib/index.html', {'error_message':error_message})
 
 	if 'authors_list' in request.GET:
@@ -57,33 +53,23 @@ def search_books(request):
 			return render(request, 'lib/index.html', {'error_message':error_message})
 
 	if 'book_info' in request.GET:
-		try:
-			title=request.GET['book_title']
-			if title:
-				books = Book.objects.all().filter(title__contains=title)
-
-				for e in books:		
-					result__.append(e)
-			else:
-				error_message='Specify book title!'
-				return render(request, 'lib/index.html', {'error_message':error_message})
-
-		except Exception as e:
-			error_message='Error %s' % e
+		title=request.GET['book_title']
+		if title:
+			books = Book.objects.all().filter(title__contains=title)
+			for e in books:		
+				result__.append(e)
+		else:
+			error_message='Specify book title!'
 			return render(request, 'lib/index.html', {'error_message':error_message})
 
 	if 'book_author' in request.GET:
-		try:
-			fname=request.GET['author_firstname']
-			if fname and not (re.search(r'\d', fname)):
-				books=Book.objects.filter(author__name__contains=fname).distinct()
-				for e in books:		
-					result__.append(e)
-			else:
-				error_message='Empty field / Invalid input'
-				return render(request, 'lib/index.html', {'error_message':error_message})
-		except Exception as e:
-			error_message='Error %s' % e
+		fname=request.GET['author_firstname']
+		if fname and not (re.search(r'\d', fname)):
+			books=Book.objects.filter(author__name__contains=fname).distinct()
+			for e in books:		
+				result__.append(e)
+		else:
+			error_message='Empty field / Invalid input'
 			return render(request, 'lib/index.html', {'error_message':error_message})
 
 	return render(request, 'lib/index.html', {'result__':result__})
